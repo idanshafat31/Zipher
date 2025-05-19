@@ -29,7 +29,7 @@ Requesting `CAN MANAGE` permission specifically for the target Databricks Job ob
 
 *(Optional: Visualizing Permission Scope)*
 The following diagram illustrates the scoped nature of the recommended permissions:
-![Databricks Permission Flow Chart for Zipher](image.png "Zipher's Recommended Permission Scope")
+![Databricks Permission Flow Chart for Zipher](assets/image.png "Zipher's Recommended Permission Scope")
 
 ---
 
