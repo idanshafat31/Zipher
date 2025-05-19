@@ -62,7 +62,7 @@ The following diagram illustrates the scoped nature of the recommended permissio
 
 A comprehensive, step-by-step guide for customers on setting up the Zipher integration is provided in the following document:
 
-**[Zipher Databricks Integration Guide.pdf](./Zipher_Databricks_Integration_Guide.pdf)**
+**[Zipher_Databricks_Integration_Guide.pdf](./Zipher_Databricks_Integration_Guide.pdf)**
 
 This guide covers:
 *   Prerequisites for integration.
