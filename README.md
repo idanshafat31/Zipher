@@ -29,7 +29,9 @@ Requesting `CAN MANAGE` permission specifically for the target Databricks Job ob
 
 *(Optional: Visualizing Permission Scope)*
 The following diagram illustrates the scoped nature of the recommended permissions:
-![Databricks Permission Flow Chart for Zipher](image.png "Zipher's Recommended Permission Scope")
+<p align="center">
+  <img src="assets/image.png" alt="Databricks Permission Flow Chart for Zipher" title="Zipher's Recommended Permission Scope" width="500"/>
+</p>
 
 ---
 
@@ -110,19 +112,24 @@ If you need to find Job IDs accessible to the Service Principal using the script
 ### Validation Outcome for Provided Credentials (Task 3 Fulfillment)
 
 When the `zipher_validator.ipynb` notebook is run with the Databricks credentials provided in the assignment:
+
 *   **Workspace URL:** `https://dbc-28eb2f60-6b17.cloud.databricks.com/`
 *   **Client ID:** `0294a4a7-054a-4210-8482-15c5d1aa1fe5`
-*   **Secret:** (as provided)
-*   **Target Job ID:** `["10813307686450"]` (this job was discoverable by the script using these credentials)
+*   **Secret:** (as provided in the assignment)
+*   **Target Job ID:** `["10813307686450"]` (this job ID was discoverable by the script using these credentials)
 
-The script successfully authenticates and obtains an OAuth token. However, when attempting to retrieve permissions for Job ID `10813307686450`, it encounters a `403 Forbidden` error. The relevant output from the script is:
+The script successfully authenticates and obtains an OAuth token. However, when attempting to retrieve permissions for Job ID `10813307686450`, it encounters a `403 Forbidden` error. The relevant output from the script, demonstrating this, is as follows:
+
+```text
 Validating permissions for Job ID: 10813307686450...
 Http Error for Job ID 10813307686450: 403 Client Error: Forbidden for url: https://dbc-28eb2f60-6b17.cloud.databricks.com/api/2.0/permissions/jobs/10813307686450
-Details: Access to Job ID 10813307686450 permissions is Forbidden. The Service Principal may lack even CAN_VIEW permission on this job.
-Could not retrieve or parse permissions for Job ID 10813307686450. Validation failed for this job.
+  Details: Access to Job ID 10813307686450 permissions is Forbidden. The Service Principal may lack even CAN_VIEW permission on this job.
+  Could not retrieve or parse permissions for Job ID 10813307686450. Validation failed for this job.
+------------------------------
+
 ==================================================
 OVERALL RESULT: FAILURE! Not all jobs meet the required permission level or errors occurred.
 ==================================================
-This output confirms that, for the provided credentials and target job, the Service Principal **does not have the required `CAN_MANAGE` permission** (it lacks even the `CAN_VIEW` permission necessary to check further). This successfully demonstrates the validator script's ability to determine permission status, thereby fulfilling the requirements of Task 3.
+```
 
----
+This output confirms that, for the provided credentials and target job, the Service Principal **does not have the required `CAN_MANAGE` permission** (it lacks even the `CAN_VIEW` permission necessary to check its full permission set). This successfully demonstrates the validator script's ability to determine the permission status, thereby fulfilling the requirements of Task 3.
