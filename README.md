@@ -52,8 +52,9 @@ Zipher should request the following permission from its customers:
 **Conclusion:**
 Requesting `CAN MANAGE` permission specifically for the target Databricks Job objects provides Zipher with the precise capabilities needed to deliver its optimization services while ensuring customers grant the most limited access necessary. The detailed steps for how customers can implement this are provided in the "Zipher Integration Guide" (Task 2).
 
-*Visualizing Permission Scope)*
+*Visualizing Permission Scope*
 The following diagram illustrates the scoped nature of the recommended permissions:
+
 ![Databricks Permission Flow Chart for Zipher](assets/image.png "Zipher's Recommended Permission Scope")
 
 ---
