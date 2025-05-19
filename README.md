@@ -18,11 +18,36 @@ This submission aims to demonstrate a thorough understanding of Databricks secur
 
 ## Task 1: Recommended Databricks Permissions for Zipher Integration
 
-*(The full text for Task 1, as you currently have it, goes here. Ensure the links to Databricks documentation are active and correct.)*
-
 **Objective:** To identify the minimum necessary permissions Zipher requires to optimize Databricks job cluster configurations, adhering to the principle of least privilege.
 
-*(... paste your full Task 1 content here ...)*
+**Background:**
+Zipher's core functionality involves programmatically collecting data about Databricks jobs and applying optimization decisions, such as modifying job cluster configurations (e.g., cluster resizing, node type changes) to improve cost-efficiency and stability. This requires API access to specific job settings within the customer's Databricks workspace.
+
+**Analysis of Databricks Permission Model:**
+A review of the Databricks access control model, specifically focusing on [Access control lists](https://docs.databricks.com/aws/en/security/auth/access-control/) and the [Databricks Jobs API](https://docs.databricks.com/api/workspace/jobs), was conducted. The key findings are:
+
+1.  **Job-Level Permissions:** Databricks provides granular permissions at the individual job level.
+2.  **Editing Job Settings:** The ability to "Edit job settings," which includes modifying the cluster configuration (for both new job clusters and selecting existing all-purpose clusters), is granted by specific permission levels on the Job object.
+3.  **API Endpoints:** Operations such as updating job settings are performed via API endpoints like `PATCH /api/2.1/jobs/{job_id}` (or the older `POST /api/2.0/jobs/update` and `POST /api/2.0/jobs/reset`). Access to these endpoints is governed by the permissions on the job itself.
+
+**Actionable Recommendation:**
+
+Zipher should request the following permission from its customers:
+
+*   **Permission:** `CAN MANAGE`
+*   **Scope:** To be granted to Zipher’s dedicated Service Principal **only on the specific Databricks Job objects** that Zipher is intended to optimize.
+*   **Context:** This refers to the `CAN MANAGE` permission as defined within the **Job Access Control Lists (ACLs)** in Databricks.
+
+**Justification for `CAN MANAGE` on Jobs:**
+
+1.  **Sufficiency for Core Task:**
+    *   **Edit Job Settings:** The `CAN MANAGE` permission on a Job object explicitly allows modification of the job's settings. This is essential for Zipher to change cluster types, sizes, auto-scaling configurations, and Spark parameters defined within the job.
+    *   **Manage Job Runs:** This permission level also includes the ability to `CAN MANAGE RUN`, which allows Zipher to start and, critically, cancel job runs. Cancelling inefficient or overrunning jobs is a key aspect of cost optimization.
+
+2.  **Adherence to Least Privilege:**
+    *   **More Restricted than `IS OWNER`:** While `IS OWNER` also allows editing job settings, it additionally grants the permission to delete the job. `CAN MANAGE` (on Jobs) provides the necessary editing and run management capabilities without the ability to delete the job, making it the less privileged of the two options that can modify job settings.
+    *   **No Broader Permissions Needed:** This permission does **not** grant workspace administrator rights. It is strictly scoped to the designated jobs. For its primary function of editing job cluster configurations *within job definitions*, Zipher does not require `CAN MANAGE` permissions on other Databricks objects like global Compute resources (clusters), Notebooks, Dashboards, or DLT Pipelines.
+    *   *(Future Scope Consideration: If Zipher's services were to expand to include direct management of all-purpose clusters outside job definitions (e.g., live resizing), then `CAN MANAGE` on those specific Compute objects would be an additional, separate requirement.)*
 
 **Conclusion:**
 Requesting `CAN MANAGE` permission specifically for the target Databricks Job objects provides Zipher with the precise capabilities needed to deliver its optimization services while ensuring customers grant the most limited access necessary. The detailed steps for how customers can implement this are provided in the "Zipher Integration Guide" (Task 2).
