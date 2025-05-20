@@ -151,6 +151,11 @@ Http Error for Job ID 10813307686450: 403 Client Error: Forbidden for url: https
 ==================================================
 OVERALL RESULT: FAILURE! Not all jobs meet the required permission level or errors occurred.
 ==================================================
+
+Attempting to get details for job ID: 10813307686450
+Successfully retrieved job details. Job name: candidate-assignment-job
+This confirms you have at least READ access to the job.
+You have access to view job task details.
 ```
 
-This output confirms that, for the provided credentials and target job, the Service Principal **does not have the required `CAN_MANAGE` permission** (it lacks even the `CAN_VIEW` permission necessary to check its full permission set). This successfully demonstrates the validator script's ability to determine the permission status, thereby fulfilling the requirements of Task 3.
+This output confirms that, for the provided credentials and target job, the Service Principal **does not have the required `CAN_MANAGE` permission** (it lacks even the `CAN_VIEW` permission necessary to check its full permission set, though we do see we have at least READ permissions). This successfully demonstrates the validator script's ability to determine the permission status, thereby fulfilling the requirements of Task 3.
