@@ -6,7 +6,7 @@ This repository contains the complete solution for Zipher's assignment, focusing
 
 ### TOC + TL:DR -
 
-1.  **Permissions Analysis (Task 1):** A detailed analysis of Databricks permissions, culminating in a recommendation for the principle of least privilege. This involves requesting `CAN MANAGE` permission on designated Databricks Job objects for Zipher's Service Principal.
+1.  **Permissions Analysis (Task 1):** A detailed analysis of Databricks permissions, culminating in a recommendation for the principle of least privilege. This involves requesting `CAN MANAGE` permission on designated Databricks Job objects for Zipher's Service Principal, and `CAN ATTACH TO` for Compute ACL.
 2.  **Customer Integration Guide (Task 2):** A comprehensive, step-by-step guide for customers. This document details how to create a Service Principal, generate OAuth M2M credentials, and assign the necessary `CAN MANAGE` permissions on target jobs to Zipher's Service Principal.
 3.  **Permissions Validation Script (Task 3):** A Python notebook script, (`zipher_validator.ipynb`), that uses Databricks Service Principal credentials (Client ID & Secret) to:
     *   Authenticate to the Databricks workspace via OAuth M2M.
@@ -52,6 +52,12 @@ Requesting `CAN MANAGE` permission specifically for the target Databricks Job ob
 The following diagram illustrates the scoped nature of the recommended permissions (not including higher roles of permissions):
 
 ![Databricks Permission Flow Chart for Zipher](assets/image.png "Zipher's Recommended Permission Scope")
+
+**Important Edit**
+We also need to ask for Compute ACL: `CAN ATTACH TO` permissions, this is critical as it provides:
+* "View Spark UI"
+* "View compute metrics"
+These metrics are essential for Zipher to analyze cluster performance (CPU/GPU utilization, worker load), and gives us the wanted visibility into the performance of the jobs cluster, excecutors, workers, and other aspects relevant for our models to reach decisions and actions.  
 
 ---
 
