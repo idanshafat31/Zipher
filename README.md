@@ -12,7 +12,6 @@ This repository contains the complete solution for Zipher's assignment, focusing
     *   Authenticate to the Databricks workspace via OAuth M2M.
     *   Optionally discover Job IDs accessible to the Service Principal.
     *   Validate whether the Service Principal possesses the required `CAN_MANAGE` permission on a specified list of target Job IDs, and report the validation outcome (For our example the answer is that the job is missing the required permissions).
-    *   With the given credentials, we discovered a job ID that we do not have CAN MANAGE permissions for.
 ---
 
 ## Task 1: Recommended Databricks Permissions for Zipher Integration
