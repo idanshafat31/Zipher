@@ -59,9 +59,10 @@ We also need to ask for Compute ACL: `CAN ATTACH TO` permissions, this is critic
 * "View compute metrics"
 These metrics are essential for Zipher to analyze cluster performance (CPU/GPU utilization, worker load), and gives us the wanted visibility into the performance of the jobs cluster, excecutors, workers, and other aspects relevant for our models to reach decisions and actions.
 
-We might also need: Pool ACLs - `CAN MANAGE` (Depending on Zipher capabilities).
-Alerts ACLs - `CAN MANAGE` or `CAN RUN` (Depending on if Zipher needs alerts from databricks or we rely on our own. Is it the databricks SQL alerts?).
-Secret ACLs - `READ` should be enough.
+We might also need: 
+* Pool ACLs - `CAN MANAGE` (Depending on Zipher capabilities).
+* Alerts ACLs - `CAN MANAGE` or `CAN RUN` (Depending on if Zipher needs alerts from databricks or we rely on our own. Is it the databricks SQL alerts?).
+* Secret ACLs - `READ` should be enough.
 
 ---
 
