@@ -61,8 +61,8 @@ These metrics are essential for Zipher to analyze cluster performance (CPU/GPU u
 
 We might also need: 
 * Pool ACLs - `CAN MANAGE` (Depending on Zipher capabilities).
-* Alerts ACLs - `CAN MANAGE` or `CAN RUN` (Depending on if Zipher needs alerts from databricks or we rely on our own. Is it the databricks SQL alerts?).
-* Secret ACLs - `READ` should be enough.
+* Secret ACLs - `READ` should be enough in order to get credentials through secrets.
+* Alerts ACLs - `CAN RUN` (Depending on if Zipher needs alerts from databricks SQL? probably not...).
 
 ---
 
